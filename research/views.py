@@ -31,6 +31,20 @@ def mentor(request,pk):
     count=projects.count()
     context={'mentor':mentor,'count':count,'projects':projects,'domains':domains,'name':name,'request':project_req,'user':req_user,'rating':rating}
     return render(request,'mentor.html',context)
+@login_required(login_url='signin_mentor')
+@allowed_users(allowed_roles=['Mentor'])
+def mentor_profile(request,pk):
+    mentor=Professor.objects.get(id=pk)
+    form=MentorUpdateInfo(instance=mentor)
+    if request.method=='POST':
+        form=MentorUpdateInfo(request.POST,request.FILES,instance=mentor)
+        if form.is_valid():
+            form.save()
+            return redirect(mentor)
+        else:
+            messages.info(request,"Unsuccessful")
+    context={'form':form,'id':pk}
+    return render(request,'mentor_profile.html',context)
 
 @login_required(login_url='signin_student')
 def student(request,pk):
@@ -45,9 +59,6 @@ def student(request,pk):
     context={'student':student,'domains':domains,'projects':projects,'count':count,'ongoing':ongoing,'finished':finished,'name':name,'rating':rating}
     return render(request,'student.html',context)
 
-def test_profile(request):
-
-    return render(request,'profile.html')
 
 @login_required(login_url='signin_student')
 def new_project(request,pk):
@@ -90,7 +101,7 @@ def student_profile(request,pk):
     student=Student.objects.get(id=pk)
     form=StudentUpdateInfo(instance=student)
     if request.method=='POST':
-        form=StudentUpdateInfo(request.POST,instance=student)
+        form=StudentUpdateInfo(request.POST,request.FILES,instance=student)
         if form.is_valid():
             form.save()
             return redirect(student)
@@ -100,20 +111,7 @@ def student_profile(request,pk):
     context={'form':form}
     return render(request,'student_profile.html',context)
 
-@login_required(login_url='signin_mentor')
-@allowed_users(allowed_roles=['Mentor'])
-def mentor_profile(request,pk):
-    mentor=Professor.objects.get(id=pk)
-    form=MentorUpdateInfo(instance=mentor)
-    if request.method=='POST':
-        form=MentorUpdateInfo(request.POST,instance=mentor)
-        if form.is_valid():
-            form.save()
-            return redirect(mentor)
-        else:
-            messages.info(request,"Unsuccessful")
-    context={'form':form,'id':pk}
-    return render(request,'mentor_profile.html',context)
+
 
 @unauthenticated_user
 def signup_student(request):

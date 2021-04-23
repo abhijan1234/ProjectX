@@ -15,5 +15,4 @@ urlpatterns=[
     path('edit_project/<str:pk>/',views.edit_project,name='edit_project'),
     path('student_profile/<str:pk>/',views.student_profile,name='student_profile'),
     path('mentor_profile/<str:pk>/',views.mentor_profile,name='mentor_profile'),
-    path('test_profile',views.test_profile,name='test_profile')
 ]

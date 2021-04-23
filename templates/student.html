@@ -8,6 +8,7 @@
     }
   </style>
 <br>
+
 <nav class="navbar navbar-expand-lg navbar-light">
       <div class="navbar-nav ml-auto">
         {% ifequal request.user.username name %}
@@ -27,6 +28,7 @@
         </div>
     </div>
     {% endifequal %}
+    <!-- 
     <div class="col-md">
         <div class="card card-body" id="work">
             <h5>Mentors</h5>
@@ -36,6 +38,7 @@
             {% endfor %}
         </div>
     </div>
+    -->
     <div class="col-md">
         <div class="card card-body" id="total">
             <h5>Total Projects</h5>
@@ -85,7 +88,7 @@
                     <td>{{i.name}}</td>
                     <td>{{i.date_started}}</td>
                     <td>{{i.date_finished}}</td>
-                    <td>{{i.mentors}}</td>
+                    <td><a href="{% url 'mentor' i.mentors.id %}">{{i.mentors}}</a></p></td>
                     <td>{{i.status}}</td>
                 </tr>
                 {% endfor %}

@@ -17,7 +17,7 @@ class StudentUpdateInfo(ModelForm):
 class MentorUpdateInfo(ModelForm):
     class Meta:
         model=Professor
-        fields=['first_name','middle_name','last_name','email','phone','college','dob','gender','address','country','state','city','zip','available','Degree','marital_status','fellowship','number_of_papers','notable_work']
+        fields=['first_name','middle_name','last_name','email','phone','college','dob','gender','address','country','state','profile_pic','city','zip','available','Degree','marital_status','fellowship','number_of_papers','notable_work']
 class CreateUserForm(UserCreationForm):
     class Meta:
         model=User
